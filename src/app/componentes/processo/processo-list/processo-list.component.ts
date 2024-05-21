@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-processo-list',
   templateUrl: './processo-list.component.html',
-  styleUrls: ['./processo-list.component.css']
+  styleUrls: ['./processo-list.component.css'],
 })
 export class ProcessoListComponent implements OnInit {
   displayedColumns: string[] = ['npu', 'uf', 'municipio', 'actions'];
@@ -17,7 +17,11 @@ export class ProcessoListComponent implements OnInit {
   pageSize = 5;
   currentPage = 0;
 
-  constructor(private http: HttpClient, private _processoService: ProcessoService, private _router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private _processoService: ProcessoService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadProcessos(this.currentPage, this.pageSize);
@@ -25,11 +29,11 @@ export class ProcessoListComponent implements OnInit {
 
   loadProcessos(page: number, size: number): void {
     this._processoService.getProcessos(page, size).subscribe(
-      data => {
+      (data) => {
         this.dataSource.data = data.content;
         this.totalElements = data.totalElements;
       },
-      error => {
+      (error) => {
         console.error('Erro ao carregar os processos', error);
       }
     );
@@ -42,7 +46,7 @@ export class ProcessoListComponent implements OnInit {
   }
 
   detalharProcesso(id: number): void {
-   this._router.navigate(['/processo-view', id]);
+    this._router.navigate(['/processo-view', id]);
   }
 
   editarProcesso(id: number): void {
@@ -56,10 +60,14 @@ export class ProcessoListComponent implements OnInit {
           console.log('Processo deletado com sucesso');
           this.loadProcessos(this.currentPage, this.pageSize);
         },
-        error => {
+        (error) => {
           console.error('Erro ao deletar o processo', error);
         }
       );
     }
+  }
+
+  voltar() {
+    this._router.navigate(['/home']);
   }
 }

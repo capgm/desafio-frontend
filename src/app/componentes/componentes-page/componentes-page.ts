@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
-import { TokenInterceptor } from '../../TokenInterceptor';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { FooterComponent } from './footer/footer.component';
@@ -17,7 +16,6 @@ import { HeaderComponent } from './header/header.component';
   ],
   providers: [
     provideClientHydration(),
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     provideHttpClient(),
   ],
   imports: [

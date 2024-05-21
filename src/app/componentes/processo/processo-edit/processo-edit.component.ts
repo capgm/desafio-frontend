@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProcessoService } from '../../../service/processo.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProcessoUpdate } from '../../../interfaces/processo-update';
 import { ProcessoView } from '../../../interfaces/processo-view';
 import { Municipio } from '../../../interfaces/municipio';
@@ -28,8 +28,8 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private _processoService: ProcessoService,
     private route: ActivatedRoute,
-    private _IBGEService: IBGEService
-  ) {}
+    private _IBGEService: IBGEService,
+    private _router : Router ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -101,14 +101,15 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
 
       this._processoService.updateProcesso(formData).subscribe(
         (response) => {
-          console.log('Registro criado com sucesso:', response);
+          alert('Processo alterado criado com sucesso!');
           controls['npu'].setValue('');
           controls['municipio'].setValue('');
           controls['uf'].setValue('');
           controls['documento'].setValue(null);
+          this._router.navigate(['/processo-lista']);
         },
         (error) => {
-          console.error('Erro ao criar o registro:', error);
+          alert('Erro ao alterar criar o processo! ' + error);
         }
       );
     }
@@ -141,5 +142,9 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  voltar(){
+    this._router.navigate(['/processo-lista']);
   }
 }

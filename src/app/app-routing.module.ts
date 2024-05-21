@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'processo-create', component: ProcessoCreateComponent},
   { path: 'processo-edit/:id', component: ProcessoEditComponent},
   { path: 'processo-view/:id', component: ProcessoViewComponent},
-  { path: 'home', component: HomeComponent,canActivate: [AuthGuard]},
+  { path: 'home', component: HomeComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

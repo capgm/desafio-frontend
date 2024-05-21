@@ -4,6 +4,7 @@ import { Estado } from '../../../interfaces/estado';
 import { Municipio } from '../../../interfaces/municipio';
 import { IBGEService } from '../../../service/ibge.service';
 import { ProcessoService } from '../../../service/processo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-processo-create',
@@ -18,7 +19,8 @@ export class ProcessoCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _IBGEService: IBGEService,
-    private _processoService: ProcessoService
+    private _processoService: ProcessoService,
+    private _router: Router
   ) {
     this.processoForm = this.fb.group({
       npu: [
@@ -77,14 +79,15 @@ export class ProcessoCreateComponent implements OnInit {
 
       this._processoService.createProcesso(formData).subscribe(
         (response) => {
-          console.log('Registro criado com sucesso:', response);
+          alert("Processo criado com sucesso!");
           controls['npu'].setValue('');
           controls['municipio'].setValue('');
           controls['uf'].setValue('');
           controls['documento'].setValue(null);
+          this._router.navigate(['/processo-lista']);
         },
         (error) => {
-          console.error('Erro ao criar o registro:', error);
+          alert("Erro ao criar o processo!" + error);
         }
       );
     }
@@ -99,5 +102,9 @@ export class ProcessoCreateComponent implements OnInit {
         console.error('Erro ao carregar os municípios', error);
       }
     );
+  }
+
+  voltar() {
+    this._router.navigate(['/home']);
   }
 }

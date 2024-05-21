@@ -46,4 +46,8 @@ export class ProcessoViewComponent implements OnInit {
   updateLastView(): void {
     this._processoService.updateLastView(this.processoId);
   }
+
+  voltar(){
+    this._router.navigate(['/processo-lista']);
+  }
 }

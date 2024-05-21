@@ -8,10 +8,10 @@
           <h3 mat-line>NPU: {{ processo.npu | npuFormat }}</h3>
         </mat-list-item>
         <mat-list-item>
-          <h3 mat-line>Data de Cadastro: {{ processo.dataCadastro  | dateFormat }}</h3>
+          <h3 mat-line>Data de Cadastro: {{ processo.dataCadastro | dateFormat }}</h3>
         </mat-list-item>
         <mat-list-item>
-          <h3 mat-line>Data ultima Visualização: {{ processo.dataVisualizacao | dateFormat  }}</h3>
+          <h3 mat-line>Data última Visualização: {{ processo.dataVisualizacao | dateFormat }}</h3>
         </mat-list-item>
         <mat-list-item>
           <h3 mat-line>Município: {{ processo.municipio }}</h3>
@@ -25,4 +25,8 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
+
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="voltar()">Voltar</button>
+  </div>
 </div>
