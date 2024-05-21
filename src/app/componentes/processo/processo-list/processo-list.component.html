@@ -1,0 +1,41 @@
+<div class="container mat-elevation-z8">
+  <h1>Lista de Processos</h1>
+
+  <table mat-table [dataSource]="dataSource" class="full-width-table">
+    <ng-container matColumnDef="npu">
+      <th mat-header-cell *matHeaderCellDef> NPU </th>
+      <td mat-cell *matCellDef="let processo"> {{processo.npu | npuFormat}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="uf">
+      <th mat-header-cell *matHeaderCellDef> UF </th>
+      <td mat-cell *matCellDef="let processo"> {{processo.uf}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="municipio">
+      <th mat-header-cell *matHeaderCellDef> Município </th>
+      <td mat-cell *matCellDef="let processo"> {{processo.municipio}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let processo">
+        <button mat-icon-button color="primary" (click)="detalharProcesso(processo.id)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="editarProcesso(processo.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deletarProcesso(processo.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChanged($event)">
+  </mat-paginator>
+</div>

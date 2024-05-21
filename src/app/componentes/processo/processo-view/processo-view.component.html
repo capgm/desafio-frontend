@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Detalhes do Processo</h1>
+
+  <mat-card>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <h3 mat-line>NPU: {{ processo.npu | npuFormat }}</h3>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>Data de Cadastro: {{ processo.dataCadastro  | dateFormat }}</h3>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>Data ultima Visualização: {{ processo.dataVisualizacao | dateFormat  }}</h3>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>Município: {{ processo.municipio }}</h3>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 mat-line>UF: {{ processo.uf }}</h3>
+        </mat-list-item>
+        <mat-list-item>
+          <a mat-button color="primary" [href]="downloadUrl" download="documento.pdf">Baixar PDF</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,21 @@
+.mat-toolbar-row {
+  justify-content: space-between;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.flex-spacer {
+  flex: 20px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,11 @@
+.container {
+  margin: 20px;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+mat-paginator {
+  margin-top: 20px;
+}

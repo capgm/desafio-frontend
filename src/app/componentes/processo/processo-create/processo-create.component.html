@@ -1,0 +1,36 @@
+<div class="container">
+  <form [formGroup]="processoForm" (ngSubmit)="onSubmit()" class="form">
+       <mat-form-field appearance="fill" class="full-width">
+      <mat-label>NPU</mat-label>
+      <input matInput formControlName="npu" type="text" placeholder="1111111-11.1111.1.11.1111" [value]="processoForm.get('npu')!.value | npuFormat">
+      <mat-error *ngIf="processoForm.get('npu')?.invalid">{{ getErrorMessage('npu') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>UF</mat-label>
+      <mat-select formControlName="uf" (selectionChange)="loadMunicipios($event.value)">
+        <mat-select-trigger>
+          <span>{{ processoForm.get('uf')!.value }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let uf of ufs" [value]="uf.sigla">{{ uf.sigla}} - {{ uf.nome}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Município</mat-label>
+      <mat-select formControlName="municipio" >
+        <mat-select-trigger>
+          <span>{{ processoForm.get('municipio')!.value }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let municipio of municipios " [value]="municipio.nome">{{ municipio.nome}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="file-upload full-width">
+      <label for="documento">Upload de Documento PDF</label>
+      <input id="documento" type="file" accept=".pdf" (change)="processoForm.get('documento')?.setValue($event.target)">
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="processoForm.invalid">Salvar</button>
+  </form>
+</div>
