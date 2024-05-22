@@ -8,11 +8,12 @@ import { Municipio } from '../../../interfaces/municipio';
 import { Estado } from '../../../interfaces/estado';
 import { IBGEService } from '../../../service/ibge.service';
 import { Subscription } from 'rxjs';
+import { NpuFormatPipe } from '../../../pipes/npu-format.pipe';
 
 @Component({
   selector: 'app-processo-edit',
   templateUrl: './processo-edit.component.html',
-  styleUrls: ['./processo-edit.component.css'],
+  styleUrls: ['./processo-edit.component.css']
 })
 export class ProcessoEditComponent implements OnInit, OnDestroy {
   processoForm!: FormGroup;
@@ -38,10 +39,7 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
       this.subscriptions.add(
         this._processoService.getById(this.processoId).subscribe((processo: ProcessoView) => {
           this.processo = processo;
-          this.pdfBlob = new Blob([this.processo.documentoPdf], {
-            type: 'application/pdf',
-          });
-          this.downloadUrl = window.URL.createObjectURL(this.pdfBlob);
+          this.downloadUrl = this.processo.documentoPdf
 
           this.subscriptions.add(
             this._IBGEService.loadEstados().subscribe(
@@ -52,7 +50,9 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
 
                 this.processoForm = this.fb.group({
                   id: [{ value: this.processo.id, disabled: true }, Validators.required],
-                  npu: [this.processo.npu, [Validators.required]],
+                  npu: [this.processo.npu, [Validators.required,
+                    Validators.minLength(20),
+                    Validators.maxLength(25)]],
                   municipio: [this.processo.municipio, Validators.required],
                   uf: [this.processo.uf, [Validators.required, Validators.maxLength(2)]],
                   documento: [this.processo.documentoPdf, Validators.required],
@@ -101,7 +101,7 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
 
       this._processoService.updateProcesso(formData).subscribe(
         (response) => {
-          alert('Processo alterado criado com sucesso!');
+          alert('Processo alterado com sucesso!');
           controls['npu'].setValue('');
           controls['municipio'].setValue('');
           controls['uf'].setValue('');
@@ -109,17 +109,13 @@ export class ProcessoEditComponent implements OnInit, OnDestroy {
           this._router.navigate(['/processo-lista']);
         },
         (error) => {
-          alert('Erro ao alterar criar o processo! ' + error);
+          alert('Erro ao alterar o processo! ' + error);
         }
       );
     }
   }
 
   ngOnDestroy(): void {
-    if (this.downloadUrl) {
-      window.URL.revokeObjectURL(this.downloadUrl);
-    }
-
     // Atualizar a data de visualização do processo
     this.updateLastView();
 

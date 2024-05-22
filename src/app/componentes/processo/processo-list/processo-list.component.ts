@@ -57,7 +57,7 @@ export class ProcessoListComponent implements OnInit {
     if (confirm('Tem certeza que deseja deletar este processo?')) {
       this.http.delete(`http://localhost:8080/api/processos/${id}`).subscribe(
         () => {
-          console.log('Processo deletado com sucesso');
+          alert('Processo deletado com sucesso');
           this.loadProcessos(this.currentPage, this.pageSize);
         },
         (error) => {

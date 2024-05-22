@@ -27,7 +27,8 @@ export class ProcessoCreateComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(/^\d{7}-\d{2}\.\d{4}\.\d{1}\.\d{2}\.\d{4}$/),
+          Validators.minLength(20),
+          Validators.maxLength(25)
         ],
       ],
       municipio: ['', Validators.required],

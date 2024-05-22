@@ -32,11 +32,9 @@
       <label for="documento">Upload de Documento PDF</label>
       <input id="documento" type="file" accept=".pdf" (change)="processoForm.get('documento')?.setValue($event.target)">
     </div>
-
     <mat-list-item>
-      <a mat-button color="primary" [href]="downloadUrl" download="documento.pdf">Baixar PDF</a>
+      <a mat-button color="primary" [href]="downloadUrl" target="_blank">Visualizar PDF antigo</a>
     </mat-list-item>
-
     <div class="button-group">
       <button mat-raised-button color="primary" type="submit" [disabled]="processoForm.invalid">Atualizar Processo</button>
       <button mat-raised-button color="primary" type="button" (click)="voltar()">Voltar</button>

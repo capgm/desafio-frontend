@@ -28,17 +28,13 @@ export class ProcessoViewComponent implements OnInit {
         .getById(this.processoId)
         .subscribe((processo: ProcessoView) => {
           this.processo = processo;
-          this.pdfBlob = new Blob([this.processo.documentoPdf], { type: 'application/pdf' });
-          this.downloadUrl = window.URL.createObjectURL(this.pdfBlob);
+
+          this.downloadUrl = this.processo.documentoPdf
         });
     });
   }
 
   ngOnDestroy(): void {
-    if (this.downloadUrl) {
-      window.URL.revokeObjectURL(this.downloadUrl);
-    }
-
     // Atualizar a data de visualização do processo
     this.updateLastView();
   }

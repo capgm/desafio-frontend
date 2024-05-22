@@ -5,5 +5,5 @@ export interface ProcessoView {
   dataVisualizacao : string[];
   municipio : string;
   uf: string;
-  documentoPdf : Blob;
+  documentoPdf : string;
 }
